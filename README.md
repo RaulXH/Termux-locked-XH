@@ -8,6 +8,8 @@ Login para termux, con contraseña segura creado en lenguaje bash; con 3 banners
 2)  cd XHLoginTermux && bash Install.sh
 
 3)  Abra otra session nueva
+
+```
 #
 # Cambio de contraseña
 ```
