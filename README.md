@@ -11,7 +11,6 @@ chmod +x Install.sh && ./Install.sh
 # _Menu mode_
 ```
 write:    Help
-
 ```
 # _Attention_
 _*This login only blocks the first execution window.  Only ask once for password confirmation*_
