@@ -1,7 +1,7 @@
 # Termux-locked-XH
-Login para termux, con contraseña segura creado en lenguaje bash; con 3 banners diferentes
+_Login for termux, with secure password created in bash language._
 
-# Comandos:
+# Commands:
 ```
 cd $HOME && git clone https://github.com/RaulXH/Termux-locked-XH && cd Termux-locked-XH/
 
