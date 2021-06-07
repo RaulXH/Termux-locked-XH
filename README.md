@@ -13,7 +13,12 @@ chmod +x Install.sh && ./Install.sh
 write:    Help
 
 ```
+# _Attention_
+_*This login only blocks the first execution window.  Only ask once for password confirmation*_
 # View 
-![Screenshot_20210309_190317_com termux](https://user-images.githubusercontent.com/77165035/110555252-3c85f480-810a-11eb-859b-12f8ceadaff1.jpg)
-![Screenshot_20210309_190323_com termux](https://user-images.githubusercontent.com/77165035/110555262-44459900-810a-11eb-9258-044d0c080a51.jpg)
-![Screenshot_20210309_190443_com termux](https://user-images.githubusercontent.com/77165035/110555287-532c4b80-810a-11eb-9e09-134420f8ed3b.jpg)
+![Screenshot_20210606_193229_com termux](https://user-images.githubusercontent.com/77165035/120945282-13bbce00-c6fe-11eb-8711-a48f53266963.jpg)
+#
+![Screenshot_20210606_193226_com termux](https://user-images.githubusercontent.com/77165035/120945292-1c140900-c6fe-11eb-8016-0d87d426363c.jpg)
+#
+![Screenshot_20210606_193221_com termux](https://user-images.githubusercontent.com/77165035/120945302-246c4400-c6fe-11eb-833b-b1d6f77db885.jpg)
+
