@@ -1,5 +1,6 @@
 # Termux-locked-XH
 _Login for termux, with secure password created in bash language._
+
 ![](https://img.shields.io/github/stars/RaulXH/Termux-locked-XH) ![](https://img.shields.io/github/license/RaulXH/Termux-locked-XH)
 # _Commands:_
 ```
