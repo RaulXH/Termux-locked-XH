@@ -8,6 +8,7 @@ cd $HOME && git clone https://github.com/RaulXH/Termux-locked-XH && cd Termux-lo
 chmod +x Install.sh && ./Install.sh
 
 ```
+# _main package: ncurses-utils_
 # _Menu mode_
 ```
 write:    Help
