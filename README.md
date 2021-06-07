@@ -1,7 +1,7 @@
 # Termux-locked-XH
 _Login for termux, with secure password created in bash language._
 
-![](https://img.shields.io/github/stars/RaulXH/Termux-locked-XH?style=flat-square&logo=GNU+Bash) ![](https://img.shields.io/github/license/RaulXH/Termux-locked-XH?style=flat-square&logo=GNU+Bash) ![](https://img.shields.io/badge/Termux-Login-blue?style=flat-square)
+![](https://img.shields.io/github/stars/RaulXH/Termux-locked-XH?style=flat-square&logo=GNU+Bash) ![](https://img.shields.io/github/license/RaulXH/Termux-locked-XH?style=flat-square&logo=GNU+Bash) ![](https://img.shields.io/badge/Termux-Login-blue?style=flat-square) ![](https://badges.pufler.dev/visits/RaulXH/Termux-locked-XH?style=flat-square&logo=Github)
 # _Commands:_
 ```
 cd $HOME && git clone https://github.com/RaulXH/Termux-locked-XH && cd Termux-locked-XH/
