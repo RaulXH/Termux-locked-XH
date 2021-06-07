@@ -1,0 +1,404 @@
+#!/data/data/com.termux/files/usr/bin/bash
+#
+#
+#
+#
+#
+#
+#   [ SCRIPT ORIGINAL ] | [ LOGIN BANNER ]
+#
+#
+#   [ Creado 04 | 05 | 2021 ] | [ Made in Panamá ]
+#
+#
+#   [ Programmed by RaulXH ] | [ Termux ]
+#
+#
+#
+#
+#
+#
+#   [ No copy from anyone ] 
+#
+#
+#
+#
+#
+#
+#
+#
+#
+until [[ $OSTYPE =~ ^linux-andro* ]]
+do
+	printf "\n it's not termux \n"
+	exit 0
+done
+set +o noclobber
+declare -r RED='\e[0;50;31m'
+declare -r YELOW='\e[1;50;33m'
+declare -r WHITE='\e[5;50;39m'
+declare -r GREEN='\e[0;50;92m'
+declare -r XBLUE='\e[7;107;34m'
+declare -r XYELOW='\e[0;43;30m'
+declare -r FORT='\e[0m'
+declare -r GRIS='\e[1;50;90m'
+declare -r XRED='\e[7;107;31m'
+declare -r BLUE='\e[0;50;94m'
+until [[ $OSTYPE =~ ^linux-andro* ]]
+do
+	printf "${XBLUE} it's not termux ${FORT}\n"
+	exit 0
+done
+declare -r ETC="$PREFIX/etc"
+declare -r FILE="$ETC/.pass"
+declare -r NAME="$ETC/lockTermux"
+rm -rf $ETC/motd
+until [[ -f $FILE ]]
+do
+	md5sum <<< Termux | awk '{print $1}' > $FILE
+	break
+done
+trap '' INT
+trap '' 20
+read LINE COLS < <(stty size)
+lock()
+{
+	local -r XGRIS='\e[0;50;90m'
+	local -r R='\e[7;107;31m'
+	local -r F='\e[4;40;30m'
+printf  "${GRIS}
+                    .:dkOOxc.                     
+                  .kWNxlccdXM0'                   
+                 .XMx       cMW'                  
+                 :MN         0Mx                  
+                 cMX${R}  TERMUX  ${FORT}${XGRIS}OMx                  
+               ,KWMMWWWWWWWWWMMWXc                
+               0MMMMMMMX0KMMMMMMMN                
+               0MMMMMMl${F}   ${FORT}${XGRIS}MMMMMMN                
+               0MMMMMMk${F}   ${FORT}${XGRIS}oMMMMMMN                
+               OMMMMMMM${F}   ${FORT}${XGRIS}MMMMMMMX                
+               ,WMMMMMMNxKMMMMMMMc                
+                .OMMMMMMMMMMMMMK;                 
+                  .:oxxxxxxxoc.${FORT}
+
+"
+}
+function resetTermux()
+{
+	sed -i d $FILE
+	echo "Termux" | md5sum | awk '{print $1}' >> $FILE
+
+}
+function ayuda()
+{
+	tput reset
+	lock
+	local PASS
+	echo -e "${BLUE}┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+
+	${YELOW}1)${FORT}${WHITE} Change Password${FORT}
+	${YELOW}2)${FORT}${WHITE} Reset Password${FORT}
+	${YELOW}3)${FORT}${WHITE} Exit${FORT}
+	${YELOW}4)${FORT}${WHITE} Uninstall Login${FORT}
+
+${BLUE}┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+	echo -ne "\n\e[1;50;39mOption: ${YELOW}" && read REPLY1
+	echo -e ${FORT}
+	case $REPLY1 in
+		1)
+			echo -ne "${YELOW}● ${GRIS}Enter your current password: ${YELOW}" && read PASS
+			printf ${FORT}
+			if [[ $(echo $PASS | md5sum | cut -d " " -f1) = $(sed -n '1p' $FILE | tr -d ' ') ]]
+			then
+				echo -e "\n${M}\t\t${YELOW}*** ${WHITE}Change of password ${YELOW}***${FORT}\n"
+				echo -ne "${YELOW}● ${GRIS}Enter your ${GREEN}new password${WHITE}-➤ ${YELOW}" && read PASS;echo -e "${AGUA}"
+                [[ -z $PASS ]] && printf "${XBLUE} Did not write anything ${FORT}\n" && sleep 2 && ayuda
+				echo -ne "${YELOW}● ${GRIS}Verify your password: ${FORT}" && read -s COM
+                declare -i COUNT=0
+                until [[ $COM = $PASS ]]
+                do
+                    COUNT=$(($COUNT+1))
+                    [[ $COUNT -eq 3 ]] && printf "\n\n${RED}Please verify your password well.  ${WHITE}Try again\n${FORT}" && sleep 2 && ayuda && return 0 
+                    printf "\n\n$RED[✘] ${WHITE}Check your password again ${RED}[✘]${FORT}\n\n"
+                    echo -ne "${RED}● ${GRIS}Verify your password: ${FORT}" && read -s COM
+                done
+
+						echo -e "\n\n${XRED}\t\t[ Security Question ]${FORT}\n"
+						sleep 1
+						echo -ne "${YELOW}● ${GRIS}Write a simple phrase: ${FORT}${YELOW}" && read  PATRON
+                        sleep 1
+                        echo -e "\n${WHITE}✓ Successfully configured, your password! ✓${FORT}\n" && sleep 2
+						PASS=$(echo $PASS | md5sum | cut -d " " -f1)
+						PATRON=$(echo $PATRON | md5sum | cut -d " " -f1)
+						printf "\n\n" | sed -e '1c\' -e $PASS -e '2c\' -e $PATRON > $FILE
+						login
+			else
+				tput civis
+                printf "\n${RED}[✘] ${WHITE}Wrong password, please try again ${RED}[✘]${FORT}\n"
+                sleep 2
+                tput cnorm
+				ayuda
+			fi
+			;;
+		2)
+			until [[ $(wc -l $FILE | awk '{print $1}') -ne '1' ]]
+            do
+				echo -e "${XBLUE}[ the password has been restored ]${FORT}"
+				sleep 2
+				clear
+				ayuda && return 0
+            done
+			echo -e "\n${XYELOW}[ Security question to reset ]${FORT}\n"
+			sleep 1
+			echo -ne "${YELOW}● ${GRIS}Key question you wrote: ${WHITE}" && read  PATRON;echo -e ${FORT}
+				if [[ $(echo $PATRON | md5sum | cut -d " " -f1) = $(sed -n '2p' $FILE | tr -d ' ') ]]
+				then
+					A=$(echo "Termux" | md5sum | cut -d " " -f1)
+					echo -e "\n${GREEN}● ${BLUE}Password is restored by default--> ${YELOW}Termux${FORT}\n"
+					sed -i -n "2c\ $A" $FILE
+					sleep 4
+					login
+				else
+					tput civis
+					echo -ne "${XRED}✘ The answer is wrong ✘"; sleep 2;tput el1;tput cub 666;echo -ne "${XRED} Try again ${FORT}\n";sleep 1
+					tput cnorm
+					ayuda
+				fi
+				;;
+		3)
+			tput reset
+			login
+			;;
+		4)
+			clear
+			echo -ne "\n${YELOW}[***] ${WHITE}Enter the new password: ${GREEN}" && read RESETP 
+			echo
+			until [[ $(echo "$RESETP" | md5sum | cut -d " " -f1) != $(sed -n '1p' $FILE  | tr -d ' ') ]] 
+            do
+				echo -e "${RED}[*] ${GRIS}Uninstalling ${RED}[*]${FORT}\n"
+				sleep 4
+				rm -rf $FILE
+				sed -i '/lockTermux/d' $PREFIX/etc/profile
+				rm -rf $NAME
+                clear
+				exit 0
+            done
+			echo -e "\n${YELOW}[!] ${RED}Incorrect password! ${YELOW}[!]${FORT}\n"
+			sleep 4
+			ayuda
+			;;
+		*)
+			echo -e "${RED}[✘] ${WHITE}Wrong option ${RED}[✘]${FORT}\n"
+			sleep 2
+			clear
+			ayuda
+			;;
+	esac
+}
+function login()
+{
+	local N=$(shuf -n 1 -i 1-2)
+	tput reset
+	
+    if [[ $N -eq 1 ]]
+	then
+		BANNER$N
+	else
+		BANNER$N
+	fi
+    until [[ $(echo "$REPLY" | md5sum | cut -d " " -f1) = $(sed -n '1p' $FILE  | tr -d ' ') ]]
+	do
+		if [[ $REPLY = 'help' ]] || [[ $REPLY = 'Help' ]]
+		then
+			ayuda
+			break
+		elif [[ "$REPLY"  = '4df15bd2da7026cb292a023f491a68d9a4484b36' ]]
+		then
+			tput civis
+			clear
+			printf ${WHITE}
+			for i in $(seq 1 $COLS);do echo -n '-';done
+			echo -e "\n\n${YELOW}[⊶] ${RED}Restoring...${YELOW}[*]\n"
+			sleep 3
+			resetTermux
+			echo -e "${YELOW}[!] \e[1;50;34m Default password ${YELOW}[!]\n"
+			sleep 3
+			printf ${WHITE}
+			for i in $(seq 1 $COLS);do echo -n '-';done
+			printf ${FORT}
+			sleep 5
+			tput cnorm
+			login
+		else
+			tput civis
+			echo -e "\n\t\t\t  ${XRED}Password is incorrect! ${FORT}\n"
+			sleep 1
+			tput reset
+			login
+			tput cnorm
+			break
+		fi
+	done
+    clear
+    return 0
+	trap -  INT
+	trap -  20
+}
+BANNER1()
+{
+local -r H='\e[0;50;33m'
+local -r Y='\e[1;50;93m'
+local -r A='\e[2;50;37m'
+local -r F='\e[0m'
+local -r R='\e[7;107;31m'
+# Create for me
+printf "
+${R}`date '+%A | %r'`${F}${H}                                                        
+                           .o.                          
+                          .lkl.                         
+                 ..   ':  :okoc  :,   ..                
+                  ,x,  c;..lkl..;c  ,x,                 
+                   'dccxkkkkkkkkkxccd'                  
+                    'ooolc:::::clooo'${Y}                   
+                    .:ccc:. ,o;.,c:,                    
+                 .;dxolloxc dl   ;kkl.                  
+                :xcclxoxxo: 'l . lxxd;                  
+               :;.oklcxkkl.  .lxl:lxl,::.               
+                .xk;okkk:... 'x,';oxxxxxx;              
+                dk:okxxxc; , ;,.lolcdxxd:l.             
+               lkk:kl;xxl :' . ,xdc,cxxxd,              
+             .dkkxd: dxx..x..o. ;'  .d:::.              
+            :dllxxo ${A}.xxo${F} ${Y};x..xd;    .;';;               
+                ox: ${A}.xx:${F} ${Y}cx' dxc.o;,'                   
+                .cc .${A}xx;${F} ${Y}:xc ${A},xc ${F}${Y}dxo,.                  
+                  .  ${A}cx:${F} ${Y}'xx..${A}dd${F}${Y}.;ddddl:,.              
+                      ${A}co${F}  ${Y}ox: ${A}:d${F}${Y},.dd'do                 
+                       ${A},.${F} ${Y};dl ${A},d: ${F}${Y}cd.:d'                
+                          ${F}${Y}.dc${F} ${A}'d;${F}${Y} cd.${A},d,${Y}                
+                           ${F}${Y}o.${F} ${A};o..${F}${Y}o, ${A}:o.${Y}                
+                           ${F}${Y}. ${A}.c. ${F}${Y};. ${A}.c.${Y}                 
+                             ${F}${A}.${F}${Y}  .  ${A}..${Y}                   
+${F}
+"
+echo -ne "\t\t\t${XRED}༐  PASSWORD  ༐${FORT}\n"
+echo -ne "\t\t\t\t" && read -s
+
+}
+BANNER2()
+{
+    local -r A='\e[0;50;36m'
+    local -r F='\e[0m'
+    local -r Y='\e[7;100;33m'
+    local -r T='\e[1;50;97m'
+    local -r R='\e[7;107;91m'
+printf "
+${R}`date '+%A | %r'`${F}${A}
+
+                      ;d0XWWMWX0d;                      
+                   .xWWWWWWWWWWWWWWx.                   
+                  :WWWWWWWWWWWWWWWWWW:                  
+                 .WWWWWWWWWWWWWWWWWWWW.                 
+                 'WWWWWWWWWWWWWWWWWWWW'                 
+                 .WWWWN0OKWWWWKO0NWWWW.                 
+                  lWWc ${T}*${F}${A}  oWWo  ${T}*${F}${A} cWWc                  
+                   xWo...:KNWK:...oWx                   
+                   dWWWWWWN..NWWWWWWd                   
+                 '' ':cxWWN00WWWxc:' ''                 
+                0WWX.  ;${Y} Termux ${F}${A};  .XWW0                
+               lNWWWXc. ':lool:' .cXWWWNl               
+              ,WWWWXWWWKd;.  .;dKWWWXWWWW,              
+                ..   .;o0WWXXWWKo;.   ..                
+               ,:;...:d0WWXxxXWW0d:'..;:,               
+              ;WWWWWWWKd;.    .;dKWWWWWWW;              
+               'NWWWO.            .OWWWN'               
+                dWWx                xWWd                
+                                                        
+${F}"                                                
+echo -ne "\t\t     ${XRED}༐  PASSWORD  ༐${FORT}\n"
+echo -ne "\t\t\t    " && read -s
+
+}
+declare -i R=0
+until [[ $(tty | awk -F/ '{print $NF}') -ge 1 ]]
+do
+    R+=1
+	login
+    break
+done
+[[ $R -eq 0 ]] && printf "\n${GREEN}● ${WHITE}Termux has already been unlocked ${GREEN}●${FORT}\n\n" && sleep 2 && clear
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#       Programado por RaulXH | Panamá
+#
+#
+#
+#       [ Script original ]
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
