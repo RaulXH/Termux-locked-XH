@@ -1,15 +1,14 @@
 # Termux-locked-XH
 _Login for termux, with secure password created in bash language._
 
-# Commands:
+# _Commands:_
 ```
 cd $HOME && git clone https://github.com/RaulXH/Termux-locked-XH && cd Termux-locked-XH/
 
 chmod +x Install.sh && ./Install.sh
 
 ```
-#
-# Menu mode
+# _Menu mode_
 ```
 write:    Help
 
