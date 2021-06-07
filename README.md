@@ -3,17 +3,15 @@ Login para termux, con contraseña segura creado en lenguaje bash; con 3 banners
 
 # Comandos:
 ```
-1) cd $HOME && git clone https://github.com/RaulXH/XHLoginTermux
+cd $HOME && git clone https://github.com/RaulXH/Termux-locked-XH && cd Termux-locked-XH/
 
-2)  cd XHLoginTermux && bash Install.sh
-
-3)  Abra otra session nueva
+chmod +x Install.sh && ./Install.sh
 
 ```
 #
-# Cambio de contraseña
+# Menu mode
 ```
-Escribir:    Help
+write:    Help
 
 ```
 # View 
