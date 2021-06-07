@@ -49,6 +49,10 @@ do
 	printf "${XBLUE} it's not termux ${FORT}\n"
 	exit 0
 done
+until [[ -f $PREFIX/etc/lockTermux ]]
+do                                                             
+echo -e "\n\e[0;50;33m[✗] \e[1;50;91mejeucte el \e[1;50;92m./Install.sh \e[1;50;91mprimero \e[0;50;33m[✗]\e[0m\n"                                        rm -rf $TMPDIR/.tmp*                                       exit 0
+done
 declare -r ETC="$PREFIX/etc"
 declare -r FILE="$ETC/.pass"
 declare -r NAME="$ETC/lockTermux"
