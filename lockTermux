@@ -329,7 +329,7 @@ do
 	login
     break
 done
-[[ $R -eq 0 ]] && printf "\n${GREEN}● ${WHITE}Termux has already been unlocked ${GREEN}●${FORT}\n\n" && sleep 2 && clear
+#[[ $R -eq 0 ]] && printf "\n${GREEN}● ${WHITE}Termux has already been unlocked ${GREEN}●${FORT}\n\n" && sleep 2 && clear
 #
 #
 #
