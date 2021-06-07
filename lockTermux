@@ -51,7 +51,7 @@ do
 done
 until [[ -f $PREFIX/etc/lockTermux ]]
 do                                                             
-echo -e "\n\e[0;50;33m[✗] \e[1;50;91mejeucte el \e[1;50;92m./Install.sh \e[1;50;91mprimero \e[0;50;33m[✗]\e[0m\n"
+echo -e "\n\e[0;50;33m[✗] \e[1;50;91mrun the ./Install.sh first\e[0;50;33m[✗]\e[0m\n"
 exit 0
 done
 declare -r ETC="$PREFIX/etc"
